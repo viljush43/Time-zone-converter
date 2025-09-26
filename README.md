@@ -73,21 +73,33 @@
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
             <!-- Input Section -->
             <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 time-card">
-                <h2 class="text-2xl font-semibold mb-6 text-primary flex items-center">
-                    <i data-feather="clock" class="mr-2"></i> Philippine Time
+                <h2 class="text-2xl font-semibold text-primary mb-6 flex items-center">
+                    <i data-feather="clock" class="mr-2"></i> 
+                    <span>Source Time Zone</span>
                 </h2>
                 
                 <div class="mb-6">
-                    <label class="block text-gray-700 dark:text-gray-300 mb-2">Current PHT</label>
+                    <label class="block text-gray-700 dark:text-gray-300 mb-2">Select Source Time Zone</label>
+                    <select class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700" id="sourceTimezoneSelect">
+                        <option value="Asia/Manila">Philippine Time (PHT)</option>
+                        <option value="America/New_York">Eastern Time (ET)</option>
+                        <option value="America/Chicago">Central Time (CT)</option>
+                        <option value="America/Denver">Mountain Time (MT)</option>
+                        <option value="America/Los_Angeles">Pacific Time (PT)</option>
+                        <option value="America/Anchorage">Alaska Time (AKT)</option>
+                        <option value="Pacific/Honolulu">Hawaii-Aleutian Time (HAT)</option>
+                    </select>
+                </div>
+<div class="mb-6">
+                    <label class="block text-gray-700 dark:text-gray-300 mb-2">Current Time</label>
                     <div class="text-4xl font-bold" id="currentPHT">Loading...</div>
                     <div class="text-gray-500 dark:text-gray-400" id="currentPHTDate"></div>
-                </div>
+</div>
 
                 <div class="mb-6">
                     <label class="block text-gray-700 dark:text-gray-300 mb-2">Custom Time</label>
                     <input type="time" class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700" id="customPHT">
                 </div>
-
                 <div class="mb-6">
                     <label class="block text-gray-700 dark:text-gray-300 mb-2">Day/Night Indicator</label>
                     <div class="day-night-indicator">
@@ -101,24 +113,24 @@
                         <span>12 AM</span>
                     </div>
                 </div>
-            </div>
-
+</div>
             <!-- Output Section -->
             <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 time-card">
                 <h2 class="text-2xl font-semibold mb-6 text-secondary flex items-center">
-                    <i data-feather="map-pin" class="mr-2"></i> US Time Zone
-                </h2>
+                    <i data-feather="map-pin" class="mr-2"></i> Target Time Zone
+</h2>
                 
                 <div class="mb-6">
                     <label class="block text-gray-700 dark:text-gray-300 mb-2">Select Time Zone</label>
                     <select class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700" id="timezoneSelect">
+                        <option value="Asia/Manila">Philippine Time (PHT)</option>
                         <option value="America/New_York">Eastern Time (ET)</option>
                         <option value="America/Chicago">Central Time (CT)</option>
                         <option value="America/Denver">Mountain Time (MT)</option>
                         <option value="America/Los_Angeles">Pacific Time (PT)</option>
                         <option value="America/Anchorage">Alaska Time (AKT)</option>
                         <option value="Pacific/Honolulu">Hawaii-Aleutian Time (HAT)</option>
-                    </select>
+</select>
                     <div class="text-sm text-gray-500 dark:text-gray-400 mt-1" id="dstIndicator"></div>
                 </div>
 
@@ -144,32 +156,33 @@
                 <div class="flex items-center justify-between">
                     <div>
                         <label class="inline-flex items-center">
-                            <input type="checkbox" class="rounded border-gray-300 text-primary focus:ring-primary" id="toggleFormat">
+                            <input type="checkbox" class="rounded border-gray-300 text-primary focus:ring-primary" id="toggleFormat" checked disabled>
                             <span class="ml-2 text-gray-700 dark:text-gray-300">12-hour format</span>
                         </label>
-                    </div>
+</div>
                     <button id="refreshBtn" class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-600 transition">
                         <i data-feather="refresh-cw" class="w-4 h-4 mr-1"></i> Refresh
                     </button>
                 </div>
             </div>
         </div>
-
-        <!-- Visualization Section -->
-        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 mt-8">
-            <h2 class="text-2xl font-semibold mb-6 text-primary flex items-center">
-                <i data-feather="globe" class="mr-2"></i> Time Zone Visualization
-            </h2>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Visualization Section -->
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 mt-8">
+                <h2 class="text-2xl font-semibold mb-6 text-primary flex items-center">
+                    <i data-feather="globe" class="mr-2"></i> Time Zone Visualization
+                </h2>
+                <div class="mb-4 text-gray-600 dark:text-gray-400">
+                    Converting from <span class="font-semibold text-primary" id="sourceTzDisplay"></span> to <span class="font-semibold text-secondary" id="targetTzDisplay"></span>
+                </div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div class="bg-gray-100 dark:bg-gray-700 rounded-lg p-4 h-64 flex items-center justify-center">
                     <div class="text-center">
                         <div class="w-32 h-32 rounded-full border-4 border-primary mx-auto mb-4 relative overflow-hidden">
                             <div class="absolute inset-0 bg-blue-100 dark:bg-blue-900" id="phSunlight"></div>
                             <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 h-16 rounded-full bg-yellow-400"></div>
                         </div>
-                        <div class="font-medium">Philippines</div>
-                        <div class="text-sm text-gray-500 dark:text-gray-400" id="phDayNight"></div>
+                        <div class="font-medium" id="sourceLocationName">Source Timezone</div>
+<div class="text-sm text-gray-500 dark:text-gray-400" id="phDayNight"></div>
                     </div>
                 </div>
                 
@@ -179,8 +192,8 @@
                             <div class="absolute inset-0 bg-blue-100 dark:bg-blue-900" id="usSunlight"></div>
                             <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 h-16 rounded-full bg-yellow-400"></div>
                         </div>
-                        <div class="font-medium" id="usLocationName">US Time Zone</div>
-                        <div class="text-sm text-gray-500 dark:text-gray-400" id="usDayNight"></div>
+                        <div class="font-medium" id="usLocationName">Target Timezone</div>
+<div class="text-sm text-gray-500 dark:text-gray-400" id="usDayNight"></div>
                     </div>
                 </div>
             </div>
@@ -215,24 +228,32 @@
             const usLocationName = document.getElementById('usLocationName');
             const phtTimeline = document.getElementById('phtTimeline');
             const usTimeline = document.getElementById('usTimeline');
-
-            let is12HourFormat = false;
-            let customTimeSet = false;
-            let phTime = moment().tz('Asia/Manila');
+            let is12HourFormat = true;
+let customTimeSet = false;
+            let sourceTimezoneSelect = document.getElementById('sourceTimezoneSelect');
+            let phTime = moment().tz(sourceTimezoneSelect.value);
             let usTime = moment().tz(timezoneSelect.value);
-
-            // Update time display
+// Update time display
             function updateTimeDisplay() {
-                const format = is12HourFormat ? 'h:mm A' : 'HH:mm';
-                
-                if (!customTimeSet) {
-                    phTime = moment().tz('Asia/Manila');
-                    currentPHT.textContent = phTime.format(format);
+                    const format = 'h:mm A';
+if (!customTimeSet) {
+                    phTime = moment().tz(sourceTimezoneSelect.value);
+currentPHT.textContent = phTime.format(format);
                     currentPHTDate.textContent = phTime.format('dddd, MMMM D, YYYY');
+                    // Ensure source and target timezones are different
+                    if (sourceTimezoneSelect.value === timezoneSelect.value) {
+                        // Find a different timezone to switch to
+                        const allTimezones = Array.from(timezoneSelect.options).map(opt => opt.value);
+                        const differentTz = allTimezones.find(tz => tz !== sourceTimezoneSelect.value);
+                        if (differentTz) {
+                            timezoneSelect.value = differentTz;
+                        }
+                    }
+                    usTime = phTime.clone().tz(timezoneSelect.value);
+} else {
+                    usTime = phTime.clone().tz(timezoneSelect.value);
                 }
-
-                usTime = phTime.clone().tz(timezoneSelect.value);
-                convertedTime.textContent = usTime.format(format);
+convertedTime.textContent = usTime.format(format);
                 convertedDate.textContent = usTime.format('dddd, MMMM D, YYYY');
 
                 // Check for day difference
@@ -254,9 +275,9 @@
                     '⏰ Currently observing Daylight Saving Time' : 
                     '⏳ Not currently observing Daylight Saving Time';
                 dstIndicator.className = `text-sm mt-1 ${isDST ? 'text-green-600 dark:text-green-400' : 'text-gray-500 dark:text-gray-400'}`;
-
-                // Update location name
+                // Update location names
                 const tzNames = {
+                    'Asia/Manila': 'Philippine Time',
                     'America/New_York': 'Eastern Time',
                     'America/Chicago': 'Central Time',
                     'America/Denver': 'Mountain Time',
@@ -264,9 +285,9 @@
                     'America/Anchorage': 'Alaska Time',
                     'Pacific/Honolulu': 'Hawaii-Aleutian Time'
                 };
-                usLocationName.textContent = tzNames[timezoneSelect.value] + ' (US)';
-
-                // Update day/night indicators
+                const targetTzName = tzNames[timezoneSelect.value] || timezoneSelect.value.split('/').pop();
+                usLocationName.textContent = targetTzName;
+// Update day/night indicators
                 updateDayNightIndicators();
             }
 
@@ -288,23 +309,22 @@
                 // Timeline markers
                 phtTimeline.style.left = '25%';
                 usTimeline.style.left = '75%';
-
-                // Sunlight visualization for PH
+                // Sunlight visualization
+                // Source timezone visualization
+                const sourceTzName = tzNames[sourceTimezoneSelect.value] || sourceTimezoneSelect.value.split('/').pop();
                 const phSunPosition = ((phHours + phMinutes/60) / 24) * 360;
                 const phIsDay = phHours >= 6 && phHours < 18;
                 phSunlight.style.background = phIsDay ? 
                     `conic-gradient(from ${phSunPosition - 90}deg, #38bdf8 0%, #7dd3fc 50%, #38bdf8 100%)` :
                     `conic-gradient(from ${phSunPosition - 90}deg, #1e3a8a 0%, #1e40af 50%, #1e3a8a 100%)`;
                 phDayNight.textContent = phIsDay ? '☀️ Daytime' : '🌙 Nighttime';
-
-                // Sunlight visualization for US
-                const usSunPosition = ((usHours + usMinutes/60) / 24) * 360;
+const usSunPosition = ((usHours + usMinutes/60) / 24) * 360;
                 const usIsDay = usHours >= 6 && usHours < 18;
                 usSunlight.style.background = usIsDay ? 
                     `conic-gradient(from ${usSunPosition - 90}deg, #38bdf8 0%, #7dd3fc 50%, #38bdf8 100%)` :
                     `conic-gradient(from ${usSunPosition - 90}deg, #1e3a8a 0%, #1e40af 50%, #1e3a8a 100%)`;
                 usDayNight.textContent = usIsDay ? '☀️ Daytime' : '🌙 Nighttime';
-            }
+}
 
             // Event listeners
             customPHT.addEventListener('change', function() {
@@ -320,28 +340,40 @@
                 } else {
                     customTimeSet = false;
                 }
+            // Update timezone display names
+            function updateTzDisplays() {
+                const sourceTzName = tzNames[sourceTimezoneSelect.value] || sourceTimezoneSelect.value.split('/').pop();
+                const targetTzName = tzNames[timezoneSelect.value] || timezoneSelect.value.split('/').pop();
+                document.getElementById('sourceTzDisplay').textContent = sourceTzName;
+                document.getElementById('targetTzDisplay').textContent = targetTzName;
+                document.getElementById('sourceLocationName').textContent = sourceTzName;
+            }
+
+            updateTimeDisplay();
+            updateTzDisplays();
+});
+            sourceTimezoneSelect.addEventListener('change', function() {
+                phTime = moment().tz(this.value);
                 updateTimeDisplay();
             });
 
             timezoneSelect.addEventListener('change', function() {
-                updateTimeDisplay();
+updateTimeDisplay();
             });
-
-            toggleFormat.addEventListener('change', function() {
-                is12HourFormat = this.checked;
-                updateTimeDisplay();
-            });
-
-            refreshBtn.addEventListener('click', function() {
+            // toggleFormat event listener removed since we're always using 12-hour format now
+refreshBtn.addEventListener('click', function() {
                 customPHT.value = '';
                 customTimeSet = false;
                 updateTimeDisplay();
             });
-
-            // Initialize and update every second
+// Initialize and update every second
             updateTimeDisplay();
             setInterval(updateTimeDisplay, 1000);
-        });
+            
+            // Also update displays when timezones change
+            sourceTimezoneSelect.addEventListener('change', updateTzDisplays);
+            timezoneSelect.addEventListener('change', updateTzDisplays);
+});
     </script>
 </body>
 </html>
