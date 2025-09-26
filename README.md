@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -66,7 +65,7 @@
     <div class="container mx-auto px-4 py-8">
         <!-- Header -->
         <header class="text-center mb-12">
-            <h1 class="text-4xl font-bold text-primary mb-2">Pinoy Time Voyager</h1>
+            <h1 class="text-4xl font-bold text-primary mb-2">Wave 4 Time Converter</h1>
             <p class="text-lg text-gray-600 dark:text-gray-400">Convert Philippine Time to US Time Zones</p>
         </header>
 
